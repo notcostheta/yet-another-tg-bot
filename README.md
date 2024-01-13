@@ -7,6 +7,7 @@ The goal was to learn to send local media to telegram servers and provided to us
 
 ## How to use :
 - Clone the repo
+- Make sure you are on python 3.10.12 since that is the version I'm building this on
 - Setup a virtual environment using `pipenv create`
 - Activate the virtual environment using `pipenv shell`
 - Install the dependencies using `pipenv install`
