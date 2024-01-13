@@ -1,4 +1,4 @@
-from pyrogram.types import ChatType, ChatMemberStatus
+from pyrogram.enums import ChatType, ChatMemberStatus
 from pyrogram.types import Message
 
 from bot.configs.config import SUDO_ID
