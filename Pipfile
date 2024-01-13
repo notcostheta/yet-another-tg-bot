@@ -12,6 +12,7 @@ asyncio = "*"
 uvloop = "*"
 python-dotenv = "*"
 psutil = "*"
+pyrate-limiter = "*"
 
 [dev-packages]
 
