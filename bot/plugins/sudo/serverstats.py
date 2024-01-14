@@ -12,9 +12,9 @@ from bot.helpers.decorators import ratelimiter
 
 
 def create_progress_bar(percentage: float, total_length: int) -> str:
-    filled_length = int(total_length * percentage // 100)
+    filled_length = int(round(total_length * percentage / 100))  # round the value to get the closest integer
     bar = "█" * filled_length + "-" * (total_length - filled_length)
-    return f"{percentage}% |{bar}|"
+    return f"{percentage:.2f}% |{bar}|"
 
 
 @Client.on_message(filters.command("serverstats") & sudo_cmd)
