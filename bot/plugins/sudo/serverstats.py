@@ -2,43 +2,58 @@ import os
 import time
 import shutil
 import psutil
+from datetime import datetime
 
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from bot import BotStartTime
 from bot.helpers.filters import sudo_cmd
 from bot.helpers.decorators import ratelimiter
+from bot.helpers.functions import get_readable_bytes, get_readable_time
 
 
-def create_progress_bar(percentage: float, total_length: int) -> str:
-    filled_length = int(round(total_length * percentage / 100))  # round the value to get the closest integer
-    bar = "█" * filled_length + "-" * (total_length - filled_length)
-    return f"{percentage:.2f}% |{bar}|"
-
-
-@Client.on_message(filters.command("serverstats") & sudo_cmd)
+@Client.on_message(filters.command([""]) & sudo_cmd)
 @ratelimiter
-async def serverstats(client: Client, message: Message):
-    uptime = time.time() - BotStartTime
-    uptime_str = time.strftime("%H:%M:%S", time.gmtime(uptime))
+async def stats(_, message: Message):
+    total, used, free = shutil.disk_usage(".")
+    process = psutil.Process(os.getpid())
 
-    cpu_usage = psutil.cpu_percent()
-    memory_usage = psutil.virtual_memory().percent
+    botuptime = get_readable_time(time.time() - BotStartTime)
+    osuptime = get_readable_time(time.time() - psutil.boot_time())
+    botusage = f"{round(process.memory_info()[0]/1024 ** 2)} MiB"
 
-    disk_usage = shutil.disk_usage("/")
-    total_disk_space = disk_usage.total
-    used_disk_space = disk_usage.used
-    disk_usage_percent = (used_disk_space / total_disk_space) * 100
+    upload = get_readable_bytes(psutil.net_io_counters().bytes_sent)
+    download = get_readable_bytes(psutil.net_io_counters().bytes_recv)
 
-    cpu_usage_bar = create_progress_bar(cpu_usage, 20)
-    memory_usage_bar = create_progress_bar(memory_usage, 20)
-    disk_usage_bar = create_progress_bar(disk_usage_percent, 20)
+    cpu_percentage = psutil.cpu_percent()
+    cpu_count = psutil.cpu_count()
 
-    await message.reply_text(
-        f"Server Stats:\n"
-        f"Uptime: {uptime_str}\n"
-        f"CPU Usage: {cpu_usage_bar}\n"
-        f"Memory Usage: {memory_usage_bar}\n"
-        f"Disk Usage: {disk_usage_bar}"
+    ram_percentage = psutil.virtual_memory().percent
+    ram_total = get_readable_bytes(psutil.virtual_memory().total)
+    ram_used = get_readable_bytes(psutil.virtual_memory().used)
+
+    disk_percenatge = psutil.disk_usage("/").percent
+    disk_total = get_readable_bytes(total)
+    disk_used = get_readable_bytes(used)
+    disk_free = get_readable_bytes(free)
+
+    caption = f"**OS Uptime:** {osuptime}\n**Bot Usage:** {botusage}\n\n**Total Space:** {disk_total}\n**Free Space:** {disk_free}\n\n**Download:** {download}\n**Upload:** {upload}"
+
+    start = datetime.now()
+    msg = await message.reply_text(
+        text=caption,
+        quote=True,
     )
+    end = datetime.now()
+
+    cpu_info = f"CPU Info: {cpu_count} core, {cpu_percentage}%"
+    disk_info = f"Disk Info: {disk_used} / {disk_total}, {disk_percenatge}%"
+    ram_info = f"RAM Info: {ram_used} / {ram_total}, {ram_percentage}%"
+    bot_info = f"Bot Uptime: {botuptime}"
+    response_time = f"Response Time: {(end-start).microseconds/1000} ms"
+
+    final_message = (
+        f"{caption}\n\n{cpu_info}\n{disk_info}\n{ram_info}\n{bot_info}\n{response_time}"
+    )
+    await msg.edit_text(text=final_message)
