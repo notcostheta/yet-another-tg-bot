@@ -2,3 +2,4 @@ secrets.txt
 config.env
 *.session*
 __pycache__/
+*.ipynb

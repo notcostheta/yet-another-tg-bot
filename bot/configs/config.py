@@ -17,3 +17,6 @@ SUDO_ID.append(OWNER_ID)
 
 # Session name for the bot
 SESSION_NAME = getenv("SESSION_NAME")
+
+# Output Path for storing downloaded files
+OUTPUT_PATH = getenv("OUTPUT_PATH")
