@@ -48,8 +48,8 @@ async def stats(_, message: Message):
     end = datetime.now()
 
     cpu_info = f"CPU Info: {cpu_count} core, {cpu_percentage}%"
-    disk_info = f"Disk Info: {disk_used} / {disk_total}, {disk_percenatge}%"
-    ram_info = f"RAM Info: {ram_used} / {ram_total}, {ram_percentage}%"
+    disk_info = f"Disk Info: {disk_used} / {disk_total}, **{disk_percenatge}%**"
+    ram_info = f"RAM Info: {ram_used} / {ram_total}, **{ram_percentage}%**"
     bot_info = f"Bot Uptime: {botuptime}"
     response_time = f"Response Time: {(end-start).microseconds/1000} ms"
 
