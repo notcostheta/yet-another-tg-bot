@@ -13,7 +13,7 @@ from bot.helpers.decorators import ratelimiter
 from bot.helpers.functions import get_readable_bytes, get_readable_time
 
 
-@Client.on_message(filters.command([""]) & sudo_cmd)
+@Client.on_message(filters.command(["stats"]) & sudo_cmd)
 @ratelimiter
 async def stats(_, message: Message):
     total, used, free = shutil.disk_usage(".")
@@ -38,7 +38,7 @@ async def stats(_, message: Message):
     disk_used = get_readable_bytes(used)
     disk_free = get_readable_bytes(free)
 
-    caption = f"**OS Uptime:** {osuptime}\n**Bot Usage:** {botusage}\n\n**Total Space:** {disk_total}\n**Free Space:** {disk_free}\n\n**Download:** {download}\n**Upload:** {upload}"
+    caption = f"**OS Uptime:** {osuptime}\n**Memory Usage:** {botusage}\n\n**Total Space:** {disk_total}\n**Free Space:** {disk_free}\n\n**Download:** {download}\n**Upload:** {upload}"
 
     start = datetime.now()
     msg = await message.reply_text(
