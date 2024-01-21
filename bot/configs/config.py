@@ -20,3 +20,7 @@ SESSION_NAME = getenv("SESSION_NAME")
 
 # Output Path for storing downloaded files
 OUTPUT_PATH = getenv("OUTPUT_PATH")
+
+# Spotify API Keys
+SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET")

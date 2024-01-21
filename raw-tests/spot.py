@@ -9,11 +9,12 @@ spotdl = Spotdl(
 
 # text = str(input("Enter the song name: "))
 text = "Vansire"
-text2 = "Vansire - Nice To See You (feat. Floor Cry)"
+# text2 = "Vansire - Nice To See You (feat. Floor Cry)"
 
-search = spotdl.search([text, text2])
+search = spotdl.search([text])
+# search = spotdl.search([text, text2])
 song, path = spotdl.download(search[0])
 
 # print(search)
-print(song)
-# print(path)
+# print(song)
+print(path)

@@ -16,6 +16,7 @@ pyrate-limiter = "*"
 cachetools = "*"
 rich = "*"
 spotdl = "*"
+tqdm = "*"
 
 [dev-packages]
 ipykernel = "*"
