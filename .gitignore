@@ -3,3 +3,4 @@ config.env
 *.session*
 __pycache__/
 *.ipynb
+*.mp3
