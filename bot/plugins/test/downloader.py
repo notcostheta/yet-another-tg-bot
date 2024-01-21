@@ -28,7 +28,7 @@ async def progress(current, total):
 
 async def download_and_send_song(message: Message, url: str):
     loop = asyncio.get_event_loop()
-    path = await loop.run_in_executor(executor, download_song, url)[1]
+    song, path = await loop.run_in_executor(executor, download_song, url)
 
     if isinstance(path, str) and path.startswith("Error"):
         await message.reply_text(path)

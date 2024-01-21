@@ -18,4 +18,6 @@ def download_song(url):
 
 
 song_name = "Vansire"
-print(download_song(song_name)[0])
+song_obj = download_song(song_name)[0]
+
+print(song_obj)

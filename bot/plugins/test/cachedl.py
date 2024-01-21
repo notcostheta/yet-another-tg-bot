@@ -37,7 +37,7 @@ async def download_and_send_song(message: Message, url: str):
         progress.pbar.close()
 
 
-@Client.on_message(filters.command(["song"]) & filters.private)
+@Client.on_message(filters.command(["cache"]) & filters.private)
 @ratelimiter
 async def song(_, message: Message):
     if len(message.command) > 1:
