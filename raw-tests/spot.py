@@ -7,14 +7,15 @@ spotdl = Spotdl(
     downloader_settings={"output": "content"},
 )
 
-# text = str(input("Enter the song name: "))
-text = "Vansire"
-# text2 = "Vansire - Nice To See You (feat. Floor Cry)"
 
-search = spotdl.search([text])
-# search = spotdl.search([text, text2])
-song, path = spotdl.download(search[0])
+def download_song(url):
+    try:
+        search = spotdl.search([url])
+        song, path = spotdl.download(search[0])
+        return song, path
+    except Exception as e:
+        return str(e)
 
-# print(search)
-# print(song)
-print(path)
+
+song_name = "Vansire"
+print(download_song(song_name)[0])
