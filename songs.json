@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Young",
+        "artists": [
+            "Vallis Alps"
+        ],
+        "artist": "Vallis Alps",
+        "genres": [
+            "australian indie",
+            "vapor soul"
+        ],
+        "disc_number": 1,
+        "disc_count": 1,
+        "duration": 324.106,
+        "year": "2015",
+        "date": "2015-01-06",
+        "track_number": 1,
+        "tracks_count": 4,
+        "song_id": "0ad87RTfHWmC2Syh1nOxEd",
+        "explicit": false,
+        "url": "https://open.spotify.com/track/0ad87RTfHWmC2Syh1nOxEd",
+        "cover_url": "https://i.scdn.co/image/ab67616d0000b2731fb3115e3b35b94a49d6fe20",
+        "album_id": "5mLmU1wyeAM453ysZZozm2",
+        "file_id": null
+    },
+    {
+        "name": "Thru",
+        "artists": [
+            "Vallis Alps"
+        ],
+        "artist": "Vallis Alps",
+        "genres": [
+            "australian indie",
+            "vapor soul"
+        ],
+        "disc_number": 1,
+        "disc_count": 1,
+        "duration": 253.533,
+        "year": "2015",
+        "date": "2015-01-06",
+        "track_number": 2,
+        "tracks_count": 4,
+        "song_id": "5rky8erNO0bMjGQNKC54IE",
+        "explicit": false,
+        "url": "https://open.spotify.com/track/5rky8erNO0bMjGQNKC54IE",
+        "cover_url": "https://i.scdn.co/image/ab67616d0000b2731fb3115e3b35b94a49d6fe20",
+        "album_id": "5mLmU1wyeAM453ysZZozm2",
+        "file_id": null
+    },
+    {
+        "name": "Reprieve",
+        "artists": [
+            "Vallis Alps"
+        ],
+        "artist": "Vallis Alps",
+        "genres": [
+            "australian indie",
+            "vapor soul"
+        ],
+        "disc_number": 1,
+        "disc_count": 1,
+        "duration": 254.626,
+        "year": "2015",
+        "date": "2015-01-06",
+        "track_number": 4,
+        "tracks_count": 4,
+        "song_id": "49Lmirhd4jbZ7oYzcNzEgx",
+        "explicit": false,
+        "url": "https://open.spotify.com/track/49Lmirhd4jbZ7oYzcNzEgx",
+        "cover_url": "https://i.scdn.co/image/ab67616d0000b2731fb3115e3b35b94a49d6fe20",
+        "album_id": "5mLmU1wyeAM453ysZZozm2",
+        "file_id": null
+    },
+    {
+        "name": "Oh!",
+        "artists": [
+            "Vallis Alps"
+        ],
+        "artist": "Vallis Alps",
+        "genres": [
+            "australian indie",
+            "vapor soul"
+        ],
+        "disc_number": 1,
+        "disc_count": 1,
+        "duration": 248.666,
+        "year": "2015",
+        "date": "2015-01-06",
+        "track_number": 3,
+        "tracks_count": 4,
+        "song_id": "2yjRx5E794bHknceHZQdK0",
+        "explicit": false,
+        "url": "https://open.spotify.com/track/2yjRx5E794bHknceHZQdK0",
+        "cover_url": "https://i.scdn.co/image/ab67616d0000b2731fb3115e3b35b94a49d6fe20",
+        "album_id": "5mLmU1wyeAM453ysZZozm2",
+        "file_id": null
+    }
+]

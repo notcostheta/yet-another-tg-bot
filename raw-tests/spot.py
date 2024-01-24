@@ -17,7 +17,12 @@ def download_song(url):
         return str(e)
 
 
-song_name = "Vansire"
-song_obj = download_song(song_name)[0]
+# song_name = "Vallis Alps Young"
+# song_obj = download_song(song_name)[0]
 
-print(song_obj)
+# print(spotdl.search([song_name]))
+album_id = "5mLmU1wyeAM453ysZZozm2"
+album_url = f"https://open.spotify.com/album/{album_id}"
+
+result = spotdl.search([album_url])
+print(result[0].song_id)

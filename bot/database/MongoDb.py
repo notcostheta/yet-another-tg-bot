@@ -1,5 +1,3 @@
-from sys import exit as exiter
-
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from bot.configs.config import MONGO_URI, SESSION_NAME

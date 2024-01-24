@@ -1,0 +1,38 @@
+Albums{
+    "_id": ObjectId("your_unique_id"),
+    "name": "Angel Youth",
+    "artist": "Vansire",
+    "genres": [
+        "bedroom pop",
+        "rochester mn indie"
+    ],
+    "release_date": ISODate("2018-04-26"),
+    "album_artist": "Vansire",
+    "total_tracks": 17,
+    "cover_url": "https://i.scdn.co/image/ab67616d0000b273a788765bdda04106bd7b0d29",
+    "copyright_text": "2018 Vansire",
+    "tracks": [
+       ObjectId("reference_to_song1"),
+       ObjectId("reference_to_song2"),
+       ObjectId("reference_to_song3")
+    ]
+}
+Tracks{
+    "_id": ObjectId("reference_to_song1"),
+    "name": "Halcyon Age",
+    "artists": [
+        "Vansire"
+    ],
+    "album": "Angel Youth",
+    "duration": 193.379,
+    "year": 2018,
+    "track_number": 3,
+    "explicit": false,
+    "publisher": "Vansire",
+    "url": "https://open.spotify.com/track/7C5pKQBh9xr7kCsBT6Y2n8",
+    "isrc": "QZANL1715978",
+    "popularity": 63,
+    "album_id": ObjectId("reference_to_album"),
+    "lyrics": null,
+    "file_id": null
+}
