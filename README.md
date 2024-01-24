@@ -20,9 +20,11 @@ The goal was to learn to send local media to telegram servers and provided to us
     - `OWNER_ID` : A comma seperated list of owner ids who can use the bot
 
 ## TODO :
+- [x] Integrate spotdl
+- [x] Make a basic bot
+- [ ] Figure out integrating mongodb
 - [ ] Send local media to telegram cache channel
 - [ ] Get the file_id of the media and send forward it to the user
 - [ ] Make a database to log the userstats
-- [ ] Integrate spotdl
 - [ ] Integrate inline spotdl
 

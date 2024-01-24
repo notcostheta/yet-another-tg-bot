@@ -24,3 +24,6 @@ OUTPUT_PATH = getenv("OUTPUT_PATH")
 # Spotify API Keys
 SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET")
+
+# MongoDB URI for the database
+MONGO_URI = getenv("MONGO_URI")
