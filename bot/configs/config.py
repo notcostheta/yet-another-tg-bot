@@ -14,7 +14,7 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 OWNER_ID = json.loads(getenv("OWNER_ID"))
 SUDO_ID = json.loads(getenv("SUDO_ID", "[]"))
 SUDO_ID.append(OWNER_ID)
-
+CACHE_CHANNEL = str(getenv("CACHE_CHANNEL"))
 # Session name for the bot
 SESSION_NAME = getenv("SESSION_NAME")
 
