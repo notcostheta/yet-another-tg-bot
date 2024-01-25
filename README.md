@@ -6,6 +6,7 @@ This was taken as a side project to learn how the pyrogram framework works
 The goal was to learn to send local media to telegram servers and provided to users through a bot
 
 ## How to use :
+**To be honest just hmu on whatsapp and I'll help you out**
 - Clone the repo
 - Make sure you are on python 3.10.12 since that is the version I'm building this on
 - Setup a virtual environment using `pipenv create`
