@@ -64,7 +64,7 @@ async def send_album(message: Message, url: str):
 async def song(_, message: Message):
     if len(message.command) > 1:
         query = message.text.split(" ", 1)[1]
-        await message.reply_text("Downloading...")
+        dl = await message.reply_text("Downloading...")
         cached_ids = await send_album(message, query)
         print(cached_ids)
     else:
