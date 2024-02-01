@@ -1,6 +1,7 @@
+from collections.abc import MutableMapping
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from bot.configs.config import MONGO_URI, SESSION_NAME
+from bot.configs.config import MONGO_URI
 from bot.utils.logging import LOGGER
 
 
@@ -58,7 +59,7 @@ async def check_mongo_uri(MONGO_URI: str) -> None:
 
 mongodb = AsyncIOMotorClient(MONGO_URI)
 
-database = mongodb.SESSION_NAME
+database = mongodb.Pie
 
 users = MongoDb(database.users)
 chats = MongoDb(database.chats)

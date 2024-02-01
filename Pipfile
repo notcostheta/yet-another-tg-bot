@@ -17,7 +17,7 @@ cachetools = "*"
 rich = "*"
 spotdl = "*"
 tqdm = "*"
-pymongo = {extras = ["srv"], version = "==3.6"}
+pymongo = "*"
 motor = "*"
 
 [dev-packages]

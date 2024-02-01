@@ -16,5 +16,14 @@ def sudo_users(_, __, message: Message) -> bool:
     return message.from_user.id in SUDO_ID if message.from_user else False
 
 
+def valid_users(_, __, message: Message) -> bool:
+    user = message.from_user
+    if user.is_bot or user.is_deleted or user.is_scam or user.is_fake:
+        return False
+    else:
+        return True
+
+
 dev_cmd = filters.create(dev_users)
 sudo_cmd = filters.create(sudo_users)
+user_cmd = filters.create(valid_users)
