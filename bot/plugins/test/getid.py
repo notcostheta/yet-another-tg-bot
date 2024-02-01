@@ -36,9 +36,7 @@ async def upload(client: Client, message: Message):
 
         file_id = file.audio.file_id
         send = await client.send_cached_media(chat_id=message.chat.id, file_id=file_id)
-
-        # channel_info = await client.get_chat(channel)
-        # print(channel_info)
+        
         return
     else:
         await message.reply_text("Provide a valid URL")
