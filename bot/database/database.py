@@ -68,6 +68,7 @@ async def save_album(song):
             "album_name": song.album_name,
             "album_artist": song.album_artist,
             "album_id": song.album_id,
+            "cover_file_id": None,
             "songs": [],
             "users": [],
         }
@@ -98,3 +99,11 @@ async def update_user_album(album_id, user_id):
         await db.albums.update_document(album_id, update_format)
     except Exception as e:
         logger.error(f"Error updating user for album {album_id}: {e}")
+
+
+async def update_album_cover(album_id, file_id):
+    try:
+        update_format = {"cover_file_id": file_id}
+        await db.albums.update_document(album_id, update_format)
+    except Exception as e:
+        logger.error(f"Error updating cover for album {album_id}: {e}")
