@@ -107,3 +107,10 @@ async def update_album_cover(album_id, file_id):
         await db.albums.update_document(album_id, update_format)
     except Exception as e:
         logger.error(f"Error updating cover for album {album_id}: {e}")
+        
+async def update_album_song(album_id, song_id):
+    try:
+        update_format = {"songs": song_id}
+        await db.albums.update_document(album_id, update_format)
+    except Exception as e:
+        logger.error(f"Error updating song for album {album_id}: {e}")

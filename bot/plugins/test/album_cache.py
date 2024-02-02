@@ -102,6 +102,5 @@ async def upload(client: Client, message: Message):
             await dl.edit_text("Uploaded")
             return
 
-        return
     else:
         await message.reply_text("Provide a valid URL")
