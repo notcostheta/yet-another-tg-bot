@@ -25,4 +25,12 @@ album_id = "5mLmU1wyeAM453ysZZozm2"
 album_url = f"https://open.spotify.com/album/{album_id}"
 
 result = spotdl.search([album_url])
-print(result[0].song_id)
+# print(result)
+
+# save_album(result[0])
+# for song in result:
+#     save_song(song)
+#     update_album_cover(song.album_id, song.song_id)
+
+
+# update_album_cover(album_id, song_id)
