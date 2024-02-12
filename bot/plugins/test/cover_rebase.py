@@ -53,6 +53,8 @@ def get_album_results(response):
         id_ = response[0].album_id
         album_url = f"https://open.spotify.com/album/{id_}"
         album = spotdl.search([album_url])
+        album = sorted(album, key=lambda song: song.track_number)
+
         return album
     except Exception as e:
         return str(e)
@@ -66,50 +68,70 @@ def get_song_results(response):
         return str(e)
 
 
-@Client.on_message(filters.command("cov") & dev_cmd)
-@ratelimiter
-async def get_cover(client: Client, message: Message):
-    if len(message.command) > 1:
-        query = message.text.split(" ", 1)[1]
-        loop = asyncio.get_event_loop()
-        response = await loop.run_in_executor(executor, get_response, query)
+def get_tracks(album):
+    tracks_dict = {}
+    for track in album:
+        track_name = track.name
+        artists = track.artists
+        tracks_dict[track_name] = artists
+    return tracks_dict
 
-        if isinstance(response, str) and response.startswith("Error"):
-            await message.reply_text(response)
-            return
-        else:
-            cover_url = await loop.run_in_executor(executor, get_cover_url, response)
-            caption = f"""
+
+def get_caption(response):
+    try:
+        caption = f"""
 **Album**: {response[0].album_name}
 **Artist**: {response[0].artist}
 **Release Date**: {response[0].date}
 **Total Tracks**: {response[0].tracks_count}
 """
-            await message.reply_photo(cover_url, caption=caption, quote=True)
+        return caption
+    except Exception as e:
+        return str(e)
+
+
+def generate_caption(response, album):
+    tracks = get_tracks(album)
+
+    album_name = album[0].album_name
+    album_artist = album[0].album_artist
+    artists = ", ".join(album[0].artists)
+    release_date = album[0].date
+
+    tracks_str = "\n".join([f"{track}" for track, artists in tracks.items()])
+
+    caption = f"""
+**Album**: {album_name}
+**Artists**: {album_artist}
+**Release Date**: {release_date}
+
+**Tracks**:
+{tracks_str}
+"""
+
+    return caption
+
+
+@Client.on_message(filters.command("cov") & dev_cmd)
+@ratelimiter
+async def get_cover(client: Client, message: Message):
+    if len(message.command) > 1:
+        query = message.text.split(" ", 1)[1]
+        response = await asyncio.to_thread(get_response, query)
+
+        if isinstance(response, str) and response.startswith("Error"):
+            await message.reply_text(response)
+            return
+        else:
+            cover_url = await asyncio.to_thread(get_cover_url, response)
+            album = await asyncio.to_thread(get_album_results, response)
+            caption = await asyncio.to_thread(generate_caption, response, album)
+            cover = await message.reply_photo(cover_url)
+            cover_msg = cover.id
+            quote_text = await message.reply(
+                text=caption, reply_to_message_id=cover_msg
+            )
+            print(cover.photo.file_id)
 
     else:
         await message.reply_text("Please provide a Song to search for.")
-
-
-# @Client.on_message(filters.command("cov") & dev_cmd)
-# @ratelimiter
-# async def get_cover(client: Client, message: Message):
-#     if len(message.command) > 1:
-#         query = message.text.split(" ", 1)[1]
-#         response = await asyncio.to_thread(get_response, query)
-
-#         if isinstance(response, str) and response.startswith("Error"):
-#             await message.reply_text(response)
-#             return
-#         else:
-#             cover_url = await asyncio.to_thread(get_cover_url, response)
-#             caption = f"""
-# **Album**: {response[0].album_name}
-# **Artist**: {response[0].artist}
-# **Release Date**: {response[0].date}
-# **Total Tracks**: {response[0].tracks_count}
-# """
-#             await message.reply_photo(cover_url, caption=caption, quote=True)
-
-#     else:
-#         await message.reply_text("Please provide a Song to search for.")
