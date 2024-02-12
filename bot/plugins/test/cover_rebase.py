@@ -9,6 +9,7 @@ from tqdm import tqdm
 import asyncio
 from concurrent.futures import ProcessPoolExecutor
 from bot.utils.logging import LOGGER
+from pyrogram import enums
 
 logger = LOGGER(__name__)
 executor = ProcessPoolExecutor(max_workers=1)
@@ -92,7 +93,8 @@ def get_caption(response):
 
 def generate_caption(response, album):
     tracks = get_tracks(album)
-
+    album_id = album[0].album_id
+    album_url = f"https://open.spotify.com/album/{album_id}"
     album_name = album[0].album_name
     album_artist = album[0].album_artist
     artists = ", ".join(album[0].artists)
@@ -101,7 +103,7 @@ def generate_caption(response, album):
     tracks_str = "\n".join([f"{track}" for track, artists in tracks.items()])
 
     caption = f"""
-**Album**: {album_name}
+**Album**: [{album_name}]({album_url})
 **Artists**: {album_artist}
 **Release Date**: {release_date}
 
@@ -129,7 +131,10 @@ async def get_cover(client: Client, message: Message):
             cover = await message.reply_photo(cover_url)
             cover_msg = cover.id
             quote_text = await message.reply(
-                text=caption, reply_to_message_id=cover_msg
+                text=caption,
+                reply_to_message_id=cover_msg,
+                parse_mode=enums.ParseMode.MARKDOWN,
+                disable_web_page_preview=True,
             )
             print(cover.photo.file_id)
 
