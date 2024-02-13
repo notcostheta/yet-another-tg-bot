@@ -1,6 +1,10 @@
 import json
 from spotdl import Spotdl
 from config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+from spotdl.types.artist import Artist
+from spotdl.types.playlist import Playlist
+from spotdl.types.album import Album
+
 
 spotdl = Spotdl(
     client_id=SPOTIFY_CLIENT_ID,
@@ -36,10 +40,6 @@ def get_tracks(album):
     return tracks_dict
 
 
-from rich import print
-import textwrap
-
-
 def generate_caption(query):
     response = get_response(query)
     album = get_album_results(response)
@@ -49,13 +49,6 @@ def generate_caption(query):
     album_artist = album[0].album_artist
     artists = ", ".join(album[0].artists)
     release_date = album[0].date
-
-    # tracks_str = "\n".join(
-    #     [
-    #         f"{track}: {textwrap.fill(', '.join(artists), width=36)}"
-    #         for track, artists in tracks.items()
-    #     ]
-    # )
 
     tracks_str = "\n".join([f"{track}" for track, artists in tracks.items()])
 
@@ -71,4 +64,45 @@ def generate_caption(query):
     return caption
 
 
-print(generate_caption("the pocket gods"))
+# print(generate_caption("the pocket gods"))
+
+artist_test = "https://open.spotify.com/artist/0EzsHuJxUDcfqSqvoPhKG4?si=Wj_VapIHRV6OaJcDxWdhPw"
+playlist = "https://open.spotify.com/playlist/15MQ0IeUvXoW4eGyt9bNtY?si=bab7120f39bb44de"
+album_test = "https://open.spotify.com/album/7FmLx521t1FJ6bWggcuNCY"
+
+# print(get_response(playlist))
+# print(get_response(artist_test))
+
+def get_artist(url):
+    try:
+        response = Artist.get_metadata(url)
+        metadata = response[0]
+        songlist = response[1]
+        return metadata, songlist
+    except Exception as e:
+        return str(e)
+    
+# print(get_artist(artist_test))
+
+def get_playlist(url):
+    try:
+        response = Playlist.get_metadata(url)
+        metadata = response[0]
+        songlist = response[1]
+        
+        return metadata, songlist
+    except Exception as e:
+        return str(e)
+    
+def get_album(url):
+    try:
+        response = Album.get_metadata(url)
+        metadata = response[0]
+        songlist = response[1]
+        
+        return metadata, songlist
+    except Exception as e:
+        return str(e)
+
+metadata, songlist = get_album(album_test)
+print(metadata)
