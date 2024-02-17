@@ -106,3 +106,6 @@ def get_album(url):
 
 metadata, songlist = get_album(album_test)
 print(metadata)
+
+artist , songlist = get_artist(artist_test)
+print(artist)

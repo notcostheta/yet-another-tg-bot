@@ -19,6 +19,7 @@ spotdl = "*"
 tqdm = "*"
 pymongo = "*"
 motor = "*"
+spotipy = "*"
 
 [dev-packages]
 ipykernel = "*"

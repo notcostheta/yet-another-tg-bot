@@ -5,3 +5,4 @@ __pycache__/
 *.ipynb
 *.mp3
 .vscode/
+.cache
