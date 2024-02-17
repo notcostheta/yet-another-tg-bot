@@ -4,7 +4,7 @@ from config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 from spotdl.types.artist import Artist
 from spotdl.types.playlist import Playlist
 from spotdl.types.album import Album
-
+from rich import print
 
 spotdl = Spotdl(
     client_id=SPOTIFY_CLIENT_ID,
@@ -105,7 +105,7 @@ def get_album(url):
         return str(e)
 
 metadata, songlist = get_album(album_test)
-print(metadata)
+# print(metadata)
 
 artist , songlist = get_artist(artist_test)
 print(artist)
