@@ -62,9 +62,10 @@ async def main():
     caption = await get_artist_caption(results)
     cover = await get_artist_cover(results)
     albums = await get_album_list(results)
-    print(albums)
-    print(cover)
-    print(caption)
+    # print(albums)
+    # print(cover)
+    # print(caption)
+    print(results)
 
 
 asyncio.run(main())

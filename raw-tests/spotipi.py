@@ -81,9 +81,9 @@ def get_discography(results: dict) -> list:
         return albums
 
 # artist_uri = "spotify:artist:0EzsHuJxUDcfqSqvoPhKG4"
-response = get_response(artist_uri)
+# response = get_response(artist_uri)
 # print(response)
-print(get_discography(response))
+# print(get_discography(response))
 # print(get_artist_caption(response))
 # print(get_artist_cover(response))
 # print(get_album_list(response))
