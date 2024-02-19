@@ -73,7 +73,7 @@ async def get_album_list(results: dict) -> list:
         return albums
 
 
-@Client.on_message(filters.command("artist") & dev_cmd)
+@Client.on_message(filters.command("artist_dep") & dev_cmd)
 @ratelimiter
 async def artist(client: Client, message: Message):
     if len(message.command) > 1:

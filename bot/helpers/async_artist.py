@@ -1,17 +1,10 @@
 import spotipy
 from spotipy.exceptions import SpotifyException
 from spotipy.oauth2 import SpotifyClientCredentials
-from config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
-import sys
-import asyncio
+from bot.configs.config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 from rich import print
 from typing import Dict
-
-spotify = spotipy.Spotify(
-    auth_manager=SpotifyClientCredentials(
-        client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
-    )
-)
+from bot.helpers.spot import spotify
 
 
 async def get_artist_response(artist_name: str) -> dict:
@@ -105,7 +98,7 @@ async def get_artist_cover(artist_response: dict) -> str:
         artist_cover = artist_response["images"][0]["url"]
         return artist_cover
     except Exception as e:
-        return "No Artist Found, please try again or try sending a Spotify URL."
+        return ""
 
 
 async def get_album_list(album_results: dict) -> list:
@@ -166,16 +159,21 @@ async def get_artist_response_url(url: str) -> Dict:
         return str(e)
 
 
-async def main():
-    url = "https://open.spotify.com/artist/7JWTyY1F2DGO4WphbQo2yM"
-    artist = "Far Caspain"
-    # print error message if url is invalid
-    artist_response = await get_artist_response(artist)
-    print(artist_response)
-    album_response = await get_artist_album_response(artist_response)
-    print(album_response)
-    caption = await get_artist_album_caption(artist_response, album_response)
-    print(caption)
+# async def main():
+#     url = "https://open.spotify.com/artist/7JWTyY1F2DGO4WphbQo2yM"
+#     artist = "Far Caspain"
+#     # print error message if url is invalid
+#     if await validate_url(url) is False:
+#         print("Invalid URL")
+#     else:
+#         artist_response = await get_artist_response_url(url)
+#         album_results = await get_artist_album_response(artist_response)
+#         caption = await get_artist_album_caption(artist_response, album_results)
+#         cover = await get_artist_cover(artist_response)
+#         albums = await get_album_list(album_results)
+#         print(caption)
+#         print(cover)
+#         print(albums)
 
 
-asyncio.run(main())
+# asyncio.run(main())
