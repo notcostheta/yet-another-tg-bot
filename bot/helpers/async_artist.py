@@ -45,8 +45,8 @@ async def get_artist_album_response(artist_response: dict) -> dict:
             artist_id, album_type="album,single,compilation", limit=50
         )
         # drop available_markets key
-        for album in album_results["items"]:
-            album.pop("available_markets", None)
+        # for album in album_results["items"]:
+        #     album.pop("available_markets", None)
 
         return album_results
     except Exception as e:
@@ -73,10 +73,10 @@ async def get_artist_album_caption(artist_response: dict, album_results: dict) -
         ]
         artist = artist_response["name"]
         caption_header = f"""**Artist**: [{artist}](https://open.spotify.com/artist/{artist_response["id"]})
-    **Genres**: {", ".join(artist_response['genres'])}
-    **Followers**: {artist_response['followers']['total']}
-    **Albums**:
-    """
+**Genres**: {", ".join(artist_response['genres'])}
+**Followers**: {artist_response['followers']['total']}
+**Albums**:
+"""
         albums_string = "\n".join(formatted_albums)
         caption = caption_header + albums_string
         return caption
