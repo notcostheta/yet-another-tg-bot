@@ -104,8 +104,8 @@ def get_album(url):
     except Exception as e:
         return str(e)
 
-metadata, songlist = get_album(album_test)
-# print(metadata)
+metadata, songlist = get_album("")
+print(metadata)
 
 artist , songlist = get_artist(artist_test)
-print(artist)
+# print(artist)

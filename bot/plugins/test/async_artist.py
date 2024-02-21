@@ -16,16 +16,20 @@ channel = int(CACHE_CHANNEL)  # Important to convert to int
 async def artist(client: Client, message: Message):
     if len(message.command) > 1:
         query = message.text.split(None, 1)[1]
+        
+        # Hack that autochecks if the query is a URL
         artist_response = (
             await get_artist_response(query)
             if not await validate_url(query)
             else await get_artist_response_url(query)
         )
-
+        
+        # Hack that fixes wrong artist name
         if not artist_response:
             await message.reply_text("Please check the artist name or URL.")
             return
 
+        # Sends the Image and Caption
         album_response = await get_artist_album_response(artist_response)
         caption = await get_artist_album_caption(artist_response, album_response)
         cover = await get_artist_cover(artist_response)
