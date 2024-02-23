@@ -1,8 +1,4 @@
-import spotipy
 from spotipy.exceptions import SpotifyException
-from spotipy.oauth2 import SpotifyClientCredentials
-from bot.configs.config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
-from rich import print
 from typing import Dict
 from bot.helpers.spot import spotify
 
@@ -36,19 +32,26 @@ async def get_artist_album_response(artist_response: dict) -> dict:
         artist_response (dict): The artist response dictionary.
 
     Returns:
-        dict: The album results dictionary.
+        list: The album results list of dictionary.
     """
     try:
-        artist = artist_response
-        artist_id = artist["id"]
-        album_results = spotify.artist_albums(
-            artist_id, album_type="album,single,compilation", limit=50
-        )
-        # drop available_markets key
-        # for album in album_results["items"]:
-        #     album.pop("available_markets", None)
+        artist_id = artist_response["id"]
+        all_albums = []
+        album_types = ["album", "single", "compilation"]
 
-        return album_results
+        for album_type in album_types:
+            albums = spotify.artist_albums(artist_id, album_type=album_type, limit=50)
+            all_albums.extend(albums["items"])
+
+            while albums["next"]:
+                albums = spotify.next(albums)
+                all_albums.extend(albums["items"])
+
+        for album in all_albums:
+            album.pop("available_markets", None)
+
+        return all_albums
+
     except Exception as e:
         return {}
 
@@ -65,7 +68,7 @@ async def get_artist_album_caption(artist_response: dict, album_results: dict) -
         str: The generated caption for the artist's albums.
     """
     try:
-        albums = album_results["items"]
+        albums = album_results
         albums.sort(key=lambda x: x["release_date"], reverse=True)
         formatted_albums = [
             f"[{album['name']}]({album['external_urls']['spotify']})"
@@ -75,9 +78,12 @@ async def get_artist_album_caption(artist_response: dict, album_results: dict) -
         caption_header = f"""**Artist**: [{artist}](https://open.spotify.com/artist/{artist_response["id"]})
 **Genres**: {", ".join(artist_response['genres'])}
 **Followers**: {artist_response['followers']['total']}
-**Albums**:
+**Total Albums**: {len(albums)}
+**Recent Albums**:
 """
-        albums_string = "\n".join(formatted_albums)
+        # albums_string = "\n".join(formatted_albums)
+        # get the first 10 albums
+        albums_string = "\n".join(formatted_albums[:10])
         caption = caption_header + albums_string
         return caption
     except Exception as e:
@@ -113,7 +119,7 @@ async def get_album_list(album_results: dict) -> list:
     """
     try:
 
-        albums = album_results["items"]
+        albums = album_results
         albums.sort(key=lambda x: x["release_date"], reverse=True)
         albums = [album["external_urls"]["spotify"] for album in albums]
         return albums

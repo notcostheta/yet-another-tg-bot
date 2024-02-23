@@ -59,7 +59,7 @@ async def send_album(message: Message, url: str):
         return file_ids
 
 
-@Client.on_message(filters.command(["album"]) & filters.private)
+@Client.on_message(filters.command(["album_123"]) & filters.private)
 @ratelimiter
 async def song(_, message: Message):
     if len(message.command) > 1:

@@ -58,14 +58,14 @@ async def get_album_list(results: dict) -> list:
 
 
 async def main():
-    results = await get_response("Vansire")
+    results = await get_response("The Rolling Stones")
     caption = await get_artist_caption(results)
     cover = await get_artist_cover(results)
     albums = await get_album_list(results)
-    # print(albums)
+    print(len(albums))
     # print(cover)
     # print(caption)
-    print(results)
+    # print(results)
 
 
 asyncio.run(main())
