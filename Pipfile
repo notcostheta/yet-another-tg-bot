@@ -20,6 +20,7 @@ tqdm = "*"
 pymongo = "*"
 motor = "*"
 spotipy = "*"
+telegraph = {extras = ["aio"], version = "*"}
 
 [dev-packages]
 ipykernel = "*"
