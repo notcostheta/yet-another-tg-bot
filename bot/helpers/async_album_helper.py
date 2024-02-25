@@ -47,3 +47,19 @@ async def get_caption(metadata: dict, album: SongList) -> str:
         return caption
     except Exception as e:
         return str(e)
+
+
+async def get_short_caption(metadata: dict, album: SongList) -> str:
+    try:
+        artist_id = metadata["artist"]["id"]
+        artist_url = f"https://open.spotify.com/artist/{artist_id}"
+        album_url = f"https://open.spotify.com/album/{album[0].album_id}"
+
+        caption_header = f"""**Album**: [{album[0].album_name}]({album_url})
+**Artists**: [{album[0].album_artist}]({artist_url})
+**Release Date**: {album[0].date}
+**Total Tracks**: {album[0].tracks_count}
+"""
+        return caption_header
+    except Exception as e:
+        return str(e)
