@@ -79,11 +79,9 @@ async def get_artist_album_caption(artist_response: dict, album_results: dict) -
 **Genres**: {", ".join(artist_response['genres'])}
 **Followers**: {artist_response['followers']['total']}
 **Total Albums**: {len(albums)}
-**Recent Albums**:
+**Albums**:
 """
-        # albums_string = "\n".join(formatted_albums)
-        # get the first 10 albums
-        albums_string = "\n".join(formatted_albums[:10])
+        albums_string = "\n".join(formatted_albums)
         caption = caption_header + albums_string
         return caption
     except Exception as e:
@@ -163,6 +161,39 @@ async def get_artist_response_url(url: str) -> Dict:
         return artist_response
     except SpotifyException as e:
         return str(e)
+
+
+async def get_short_artist_caption(artist_response: dict, album_results: dict) -> str:
+    """
+    Generate a short caption for an artist's albums.
+
+    Args:
+        artist_response (dict): The response containing artist information.
+        album_results (dict): The response containing album information.
+
+    Returns:
+        str: The generated caption for the artist's albums.
+    """
+    try:
+        albums = album_results
+        albums.sort(key=lambda x: x["release_date"], reverse=True)
+        formatted_albums = [
+            f"[{album['name']}]({album['external_urls']['spotify']})"
+            for album in albums
+        ]
+        artist = artist_response["name"]
+        caption_header = f"""**Artist**: [{artist}](https://open.spotify.com/artist/{artist_response["id"]})
+**Genres**: {", ".join(artist_response['genres'])}
+**Followers**: {artist_response['followers']['total']}
+**Total Albums**: {len(albums)}
+**Recent Albums**:
+"""
+        # get the first 10 albums
+        albums_string = "\n".join(formatted_albums[:10])
+        caption = caption_header + albums_string
+        return caption
+    except:
+        return "No Artist Found, please try again or try sending a Spotify URL."
 
 
 # async def main():
