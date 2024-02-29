@@ -12,7 +12,7 @@ logger = LOGGER(__name__)
 channel = int(CACHE_CHANNEL)  # Important to convert to int
 
 
-@Client.on_message(filters.command("album"))
+@Client.on_message(filters.command("album1"))
 @ratelimiter
 async def album(client: Client, message: Message):
     if len(message.command) > 1:

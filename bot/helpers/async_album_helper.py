@@ -63,3 +63,33 @@ async def get_short_caption(metadata: dict, album: SongList) -> str:
         return caption_header
     except Exception as e:
         return str(e)
+
+
+async def autocaption(metadata: dict, album: SongList) -> str:
+    try:
+        artist_id = metadata["artist"]["id"]
+        artist_url = f"https://open.spotify.com/artist/{artist_id}"
+        album_url = f"https://open.spotify.com/album/{album[0].album_id}"
+
+        caption_header = f"""**Album**: [{album[0].album_name}]({album_url})
+**Artists**: [{album[0].album_artist}]({artist_url})
+**Release Date**: {album[0].date}
+**Total Tracks**: {album[0].tracks_count}
+"""
+        tracks_str = "\n".join([f"[{track.name}]({track.url})" for track in album])
+        caption = f"{caption_header}\n**Tracks**:\n{tracks_str}"
+
+        if len(caption) > 4096:
+            return caption_header
+        else:
+            return caption
+    except Exception as e:
+        return str(e)
+
+
+def download_album(album: SongList) -> str:
+    try:
+        dl = spotdl.download_songs(album)
+        return dl
+    except Exception as e:
+        return str(e)
