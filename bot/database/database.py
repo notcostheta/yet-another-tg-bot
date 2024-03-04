@@ -88,7 +88,7 @@ async def update_file_id(song_id, file_id):
 async def update_user_song(song_id, user_id):
     try:
         update_format = {"$push": {"users": user_id}}
-        await db.tracks.update_document(song_id, update_format)
+        await db.tracks.update_one({"_id": song_id}, update_format)
     except Exception as e:
         logger.error(f"Error updating user for song {song_id}: {e}")
 
@@ -96,7 +96,7 @@ async def update_user_song(song_id, user_id):
 async def update_user_album(album_id, user_id):
     try:
         update_format = {"$push": {"users": user_id}}
-        await db.albums.update_document(album_id, update_format)
+        await db.albums.update_one({"_id": album_id}, update_format)
     except Exception as e:
         logger.error(f"Error updating user for album {album_id}: {e}")
 
