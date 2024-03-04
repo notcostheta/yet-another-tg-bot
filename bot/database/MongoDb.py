@@ -18,7 +18,13 @@ class MongoDb:
 
     async def update_document(self, document_id, updated_data):
         try:
-            updated_data = {"$set": updated_data}
+            if any(key.startswith("$") for key in updated_data):
+                # If the updated_data contains update operators (like $push),
+                # use it directly.
+                pass
+            else:
+                # Otherwise, wrap the updated_data in a $set operator.
+                updated_data = {"$set": updated_data}
             await self.collection.update_one(
                 {"_id": document_id}, updated_data, upsert=True
             )
@@ -45,6 +51,12 @@ class MongoDb:
             LOGGER(__name__).error(f"Error getting document IDs: {e}")
             return []
 
+    async def update_one(self, filter, update):
+        try:
+            await self.collection.update_one(filter, update, upsert=True)
+        except Exception as e:
+            LOGGER(__name__).error(f"Error updating one: {e}")
+
 
 async def check_mongo_uri(MONGO_URI: str) -> None:
     try:
@@ -63,6 +75,6 @@ database = mongodb.Pie
 
 users = MongoDb(database.users)
 chats = MongoDb(database.chats)
-songs = MongoDb(database.songs)
+tracks = MongoDb(database.tracks)
 albums = MongoDb(database.albums)
 artists = MongoDb(database.artists)
